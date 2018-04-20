@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include "dynArray.h"
 
-
 /* ************************************************************************
 	Dynamic Array Functions
 ************************************************************************ */
@@ -260,6 +259,7 @@ TYPE topDynArr(DynArr *v)
 	assert((v!=NULL) && (sizeDynArr(v) > 0) );
 	return v->data[v->size-1];
 }
+
 
 /* Removes the element on top of the stack
 

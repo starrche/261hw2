@@ -33,14 +33,12 @@ char nextChar(char* s)
 /* Checks whether the (), {}, and [] are balanced or not
 	param: 	s pointer to a string
 	pre: s is not null
-	post:
+	post: Boolean returned
 */
 int isBalanced(char* s)
 {
-	int par, brac, curly;
-	int i;
 	char ch;  /*stores the current character from the input string*/
-	char ts;  /*stores the top element of the stack*/
+	/*char ts;  stores the top element of the stack*/
 	int b=1;  /*Boolean variable b=1 means balanced; b=0 means unbalanced string*/
 
 	DynArr *stack;
@@ -50,36 +48,50 @@ int isBalanced(char* s)
 	if (s && strlen(s)) /* what does this line do??? */
 		while(1)
 		{
-			par = 0;
-			brac = 0;
-			curly = 0;
 			ch=nextChar(s);
 
 			if(ch==0 || ch=='\0')
 				break;
 
-
 			if(ch=='(' || ch=='[' || ch=='{' )
 				pushDynArr(stack,ch);
+
 			else
 			{
-        if(ch == ')') {
-					for(i = 0; i < stack->size; i++ ) {
-						if(getDynArr(stack,i) == ')') {
-							par++;
-						}
-					}
-					if (par%2 != 0) {
-					printf("here");
+				if((ch == ')' || ch == ']' || ch == '}' )&& sizeDynArr(stack) == 0)
+				{
+					b = 0;
+					break;
+				}
+				else if(ch == ')')
+				{
+					if (topDynArr(stack) == '(')
+						popDynArr(stack);
+					else
 						b = 0;
-					}
+				}
+				else if(ch == ']')
+				{
+					if (topDynArr(stack) == '[')
+						popDynArr(stack);
+					else
+						b = 0;
+				}
+				if(ch == '}')
+				{
+					if (topDynArr(stack) == '{')
+						popDynArr(stack);
+					else
+						b = 0;
 				}
 			}
-
 		}
-        /* Free the memory allocated to stack, and return b=1 or b=0 */
-        deleteDynArr(stack);
-        return b;
+		if (sizeDynArr(stack) > 0)
+			b = 0;
+
+    /* Free the memory allocated to stack, and return b=1 or b=0 */
+    deleteDynArr(stack);
+    return b;
 
 	/* FIXME: You will write this part of the function */
 
