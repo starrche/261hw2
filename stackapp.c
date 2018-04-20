@@ -3,6 +3,7 @@
 /* Homework 2 */
 /* 4/19/2018 */
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -36,7 +37,8 @@ char nextChar(char* s)
 */
 int isBalanced(char* s)
 {
-
+	int par, brac, curly;
+	int i;
 	char ch;  /*stores the current character from the input string*/
 	char ts;  /*stores the top element of the stack*/
 	int b=1;  /*Boolean variable b=1 means balanced; b=0 means unbalanced string*/
@@ -48,6 +50,9 @@ int isBalanced(char* s)
 	if (s && strlen(s)) /* what does this line do??? */
 		while(1)
 		{
+			par = 0;
+			brac = 0;
+			curly = 0;
 			ch=nextChar(s);
 
 			if(ch==0 || ch=='\0')
@@ -58,35 +63,20 @@ int isBalanced(char* s)
 				pushDynArr(stack,ch);
 			else
 			{
-        ts = topDynArr(stack);
-        /* FIXME: You will write this part of the function */
-        if (ch == ')' && ts != '(')
-        {
-          printf("here1\n");
-          b = 0;
-        }
-        if (ch == ']' && ts != '[')
-        {
-          printf("here2\n");
-          b = 0;
-        }
-        if (ch == '}' && ts != '{')
-        {
-          printf("here3\n");
-          b = 0;
-        }
-        if(ch==')' || ch==']' || ch=='}' )
-  				pushDynArr(stack,ch);
+        if(ch == ')') {
+					for(i = 0; i < stack->size; i++ ) {
+						if(getDynArr(stack,i) == ')') {
+							par++;
+						}
+					}
+					if (par%2 != 0) {
+					printf("here");
+						b = 0;
+					}
+				}
 			}
-      /* should i use if(stack->size%2 == 0) or sizeDynArr(stack)%2 == 0? */
-      // if(sizeDynArr(stack)%2 == 0)
-      // {
-      //   b = 0;
-      // }
 
 		}
-
-
         /* Free the memory allocated to stack, and return b=1 or b=0 */
         deleteDynArr(stack);
         return b;

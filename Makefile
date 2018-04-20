@@ -4,7 +4,7 @@ dynArray.o: dynArray.c dynArray.h
 	gcc -Wall -ansi -c dynArray.c
 
 prog: dynArray.o
-	gcc -Wall -amsi -o prog dynArray.o stackapp.c
+	gcc -Wall -ansi -o prog dynArray.o stackapp.c
 
 b2s: dynArray.o
 	gcc -Wall -ansi -o b2s dynArray.o bag2set.c

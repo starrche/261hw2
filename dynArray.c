@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include "dynArray.h"
 
+
 /* ************************************************************************
 	Dynamic Array Functions
 ************************************************************************ */
@@ -132,6 +133,7 @@ void addDynArr(DynArr *v, TYPE val)
     _dynArrSetCapacity(v, (v->size) * 2);
   v->data[v->size] = val;
   v->size++;
+
 }
 
 /*	Get an element from the dynamic array from a specified position
